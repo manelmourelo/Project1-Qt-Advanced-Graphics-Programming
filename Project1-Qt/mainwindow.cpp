@@ -7,6 +7,7 @@
 #include "hierarchy.h"
 #include "inspector.h"
 #include "renderwidget.h"
+#include "object.h"
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
@@ -23,7 +24,7 @@ MainWindow::MainWindow(QWidget *parent) :
     inspector = new Inspector();
     ui_main_window->dockInspector->setWidget(inspector);
 
-    connect(hierarchy, SIGNAL(EntitySelected(int)), inspector, SLOT(itemChanged(int)));
+    connect(hierarchy, SIGNAL(EntitySelected(int, std::list<Object>)), inspector, SLOT(itemChanged(int, std::list<Object>)));
 
     renderWidget = new RenderWidget();
     QVBoxLayout *centralLayout = new QVBoxLayout();

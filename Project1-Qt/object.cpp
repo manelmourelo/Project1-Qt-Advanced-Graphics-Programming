@@ -4,7 +4,7 @@ Object::Object()
 {
     name = "NewObject";
 
-    position = QVector2D(0.0f,0.0f);
+    position = QVector2D(10.0f,5.0f);
     scale = QVector2D(1.0f,1.0f);
 
     shape = Shape::Circle;
@@ -17,5 +17,4 @@ Object::Object()
 
 Object::~Object()
 {
-
 }

@@ -2,6 +2,7 @@
 #define INSPECTOR_H
 
 #include <QWidget>
+#include "object.h"
 
 namespace Ui {
     class Transform;
@@ -18,7 +19,7 @@ public:
     ~Inspector();
 
 public slots:
-    void itemChanged(int new_item);
+    void itemChanged(int new_item, std::list<Object> object);
 
 private:
      Ui::Transform *ui_transform;

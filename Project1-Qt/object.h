@@ -17,6 +17,8 @@ public:
     ~Object();
 
 public:
+    uint UUID = 0;
+
     std::string name;
 
     QVector2D position;

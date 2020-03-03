@@ -4,6 +4,9 @@
 #include "ui_color.h"
 #include "ui_shape.h"
 #include <QSpacerItem>
+#include "hierarchy.h"
+#include "object.h"
+#include <list>
 
 Inspector::Inspector(QWidget *parent) : QWidget(parent)
 {
@@ -40,40 +43,19 @@ Inspector::~Inspector()
     delete ui_color;
 }
 
-void Inspector::itemChanged(int new_item)
+void Inspector::itemChanged(int new_item, std::list<Object> objects)
 {
 
-    switch(new_item){
-    case 0:
-        transform->show();
-        form->hide();
-        color->hide();
-        break;
-    case 1:
-        transform->show();
-        form->show();
-        color->hide();
-        break;
-    case 2:
-        transform->show();
-        form->show();
-        color->show();
-        break;
-    case 3:
-        transform->hide();
-        form->show();
-        color->show();
-        break;
-    case 4:
-        transform->hide();
-        form->hide();
-        color->show();
-        break;
-    default:
-        transform->show();
-        form->show();
-        color->show();
-        break;
+    std::list<Object>::iterator it;
+    int i = 0;
+    for(it = objects.begin(); it != objects.end(); it++){
+        if(i == new_item){
+            ui_transform->translationX->setValue(it->position.x());
+            ui_transform->translationY->setValue(it->position.y());
+            ui_transform->scaleX->setValue(it->scale.x());
+            ui_transform->scaleY->setValue(it->scale.y());
+            break;
+        }
+        i++;
     }
-
 }

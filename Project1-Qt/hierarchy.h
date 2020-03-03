@@ -2,6 +2,8 @@
 #define HIERARCHY_H
 
 #include <QWidget>
+#include <list>
+#include "object.h"
 
 namespace Ui {
 class Hierarchy;
@@ -16,7 +18,7 @@ public:
     ~Hierarchy();
 
 signals:
-    void EntitySelected(int entotyID);
+    void EntitySelected(int entotyID, std::list<Object> objects);
 
 public slots:
     void onAddEntityClicked();
@@ -25,6 +27,9 @@ public slots:
 
 private:
     Ui::Hierarchy *ui;
+public:
+    std::list<Object> objects;
+    std::list<Object> draw_order;
 };
 
 #endif // HIERARCHY_H
