@@ -29,12 +29,14 @@ SOURCES += \
         inspector.cpp \
         main.cpp \
         mainwindow.cpp \
+        object.cpp \
         renderwidget.cpp
 
 HEADERS += \
         hierarchy.h \
         inspector.h \
         mainwindow.h \
+        object.h \
         renderwidget.h
 
 FORMS += \
