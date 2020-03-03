@@ -1,0 +1,6 @@
+<RCC>
+    <qresource prefix="/Icons">
+        <file alias="Folder">Icons/Folder docs.png</file>
+        <file alias="Save">Icons/Disquette.png</file>
+    </qresource>
+</RCC>
