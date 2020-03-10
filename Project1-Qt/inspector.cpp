@@ -9,7 +9,8 @@
 #include <list>
 #include <QColorDialog>
 #include <QPalette>
-
+#include <QString>
+#include <QDebug>
 Inspector::Inspector(QWidget *parent) : QWidget(parent)
 {
     ui_transform = new Ui::Transform();
@@ -65,27 +66,56 @@ void Inspector::itemChanged(int new_item, std::list<Object> objects)
     }
 }
 
+QString getColorString(QColor color)
+{
+    int r = 0,g = 0,b = 0;
+    color.getRgb(&r,&g,&b);
+
+    QString string = "background-color: rgb(";
+    string +=QString::number(r);
+    string +=",";
+    string +=QString::number(g);
+    string +=",";
+    string +=QString::number(b);
+    string +=")";
+
+    return string;
+}
+
 void Inspector::onColorClicked(){
     QColor color = QColorDialog::getColor(Qt::yellow, this );
     if( color.isValid() )
     {
         QPalette pal = ui_color->fillColor->palette();
-        pal.setColor(QPalette::Button, color);
+
+        QString string = getColorString(color);
+
+        ui_color->fillColor->setStyleSheet(string);
+
         ui_color->fillColor->setAutoFillBackground(true);
         ui_color->fillColor->setPalette(pal);
         ui_color->fillColor->update();
+
         emit FillColorChanged(color);
     }
 }
+
 void Inspector::onStrokeColorClicked(){
     QColor color = QColorDialog::getColor(Qt::yellow, this );
     if( color.isValid() )
     {
         QPalette pal = ui_color->strockeColor->palette();
+
         pal.setColor(QPalette::Button, color);
+
+        QString string = getColorString(color);
+
+        ui_color->strockeColor->setStyleSheet(string);
+
         ui_color->strockeColor->setAutoFillBackground(true);
         ui_color->strockeColor->setPalette(pal);
         ui_color->strockeColor->update();
+
         emit StrokeColorChanged(color);
     }
 }
