@@ -22,12 +22,26 @@ signals:
     void FillColorChanged(QColor);
     void StrokeColorChanged(QColor);
     void NameChanged(QString);
+    void TransformXChanged(double d);
+    void TransformYChanged(double d);
+    void ScaleXChanged(double d);
+    void ScaleYChanged(double d);
+    void StrockeThicknessChanged(double d);
+    void ShapeChanged(int index);
+    void StrokeStyleCHanged(int index);
 
 public slots:
     void itemChanged(int new_item, std::list<Object> object);
     void onColorClicked();
     void onStrokeColorClicked();
     void onNameEntered();
+    void onTransformX(double d);
+    void onTransformY(double d);
+    void onScaleX(double d);
+    void onScaleY(double d);
+    void onStrockeThickness(double d);
+    void onShape(int index);
+    void onStrokeStyle(int index);
 
 private:
      Ui::Transform *ui_transform;

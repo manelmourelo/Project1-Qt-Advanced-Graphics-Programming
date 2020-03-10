@@ -27,6 +27,13 @@ public slots:
     void FillColorChanged(QColor);
     void StrokeColorChanged(QColor);
     void NameChanged(QString text);
+    void TransformXChanged(double d);
+    void TransformYChanged(double d);
+    void ScaleXChanged(double d);
+    void ScaleYChanged(double d);
+    void onStrockeThickness(double d);
+    void onShape(int index);
+    void onStrokeStyle(int index);
 
 private:
     Ui::Hierarchy *ui;

@@ -42,6 +42,17 @@ Inspector::Inspector(QWidget *parent) : QWidget(parent)
 
     connect(ui_transform->nameInput, SIGNAL(returnPressed()), SLOT(onNameEntered()));
 
+    connect(ui_transform->translationX, SIGNAL(valueChanged(double)), SLOT(onTransformX(double)));
+    connect(ui_transform->translationY, SIGNAL(valueChanged(double)), SLOT(onTransformY(double)));
+    connect(ui_transform->scaleX, SIGNAL(valueChanged(double)), SLOT(onScaleX(double)));
+    connect(ui_transform->scaleY, SIGNAL(valueChanged(double)), SLOT(onScaleY(double)));
+
+    connect(ui_color->strockeThickness, SIGNAL(valueChanged(double)), SLOT(onStrockeThickness(double)));
+
+    connect(ui_form->shape, SIGNAL(currentIndexChanged(int)), SLOT(onShape(int)));
+
+    connect(ui_color->strockeStyle, SIGNAL(currentIndexChanged(int)), SLOT(onStrokeStyle(int)));
+
 }
 
 Inspector::~Inspector()
@@ -49,24 +60,6 @@ Inspector::~Inspector()
     delete ui_transform;
     delete ui_form;
     delete ui_color;
-}
-
-void Inspector::itemChanged(int new_item, std::list<Object> objects)
-{
-
-    std::list<Object>::iterator it;
-    int i = 0;
-    for(it = objects.begin(); it != objects.end(); it++){
-        if(i == new_item){
-            //ui_transform->nameInput->setText(it->name);
-            ui_transform->translationX->setValue(it->position.x());
-            ui_transform->translationY->setValue(it->position.y());
-            ui_transform->scaleX->setValue(it->scale.x());
-            ui_transform->scaleY->setValue(it->scale.y());
-            break;
-        }
-        i++;
-    }
 }
 
 QString getColorString(QColor color)
@@ -83,6 +76,67 @@ QString getColorString(QColor color)
     string +=")";
 
     return string;
+}
+
+void Inspector::itemChanged(int new_item, std::list<Object> objects)
+{
+    std::list<Object>::iterator it;
+    int i = 0;
+    for(it = objects.begin(); it != objects.end(); it++){
+        if(i == new_item){
+            ui_transform->nameInput->setText(it->name);
+            ui_transform->translationX->setValue(it->position.x());
+            ui_transform->translationY->setValue(it->position.y());
+            ui_transform->scaleX->setValue(it->scale.x());
+            ui_transform->scaleY->setValue(it->scale.y());
+
+            //FillColor
+            QPalette pal = ui_color->fillColor->palette();
+            QString string = getColorString(it->fill_color);
+            ui_color->fillColor->setStyleSheet(string);
+            ui_color->fillColor->setAutoFillBackground(true);
+            ui_color->fillColor->setPalette(pal);
+            ui_color->fillColor->update();
+            //StrokeColor
+            QPalette pal2 = ui_color->strockeColor->palette();
+            QString string2 = getColorString(it->strocke_color);
+            ui_color->strockeColor->setStyleSheet(string2);
+            ui_color->strockeColor->setAutoFillBackground(true);
+            ui_color->strockeColor->setPalette(pal2);
+            ui_color->strockeColor->update();
+
+            ui_color->strockeThickness->setValue(it->strocke_thickness);
+
+            if(it->shape == Shape::Circle){
+                ui_form->shape->setCurrentIndex(0);
+            }
+            else{
+               ui_form->shape->setCurrentIndex(1);
+            }
+
+            if(it->strocke_style == Qt::PenStyle::SolidLine){
+                ui_color->strockeStyle->setCurrentIndex(0);
+            }
+            else if(it->strocke_style == Qt::PenStyle::DashLine){
+                ui_color->strockeStyle->setCurrentIndex(1);
+            }
+            else if(it->strocke_style == Qt::PenStyle::DotLine){
+                ui_color->strockeStyle->setCurrentIndex(2);
+            }
+            else if(it->strocke_style == Qt::PenStyle::DashDotLine){
+                ui_color->strockeStyle->setCurrentIndex(3);
+            }
+            else if(it->strocke_style == Qt::PenStyle::DashDotDotLine){
+                ui_color->strockeStyle->setCurrentIndex(4);
+            }
+            else if(it->strocke_style == Qt::PenStyle::NoPen){
+                ui_color->strockeStyle->setCurrentIndex(5);
+            }
+
+            break;
+        }
+        i++;
+    }
 }
 
 void Inspector::onColorClicked(){
@@ -128,3 +182,32 @@ void Inspector::onNameEntered()
     QString text = ui_transform->nameInput->text();
     emit NameChanged(text);
 }
+
+void Inspector::onTransformX(double d){
+    emit TransformXChanged(d);
+}
+
+void Inspector::onTransformY(double d){
+    emit TransformYChanged(d);
+}
+
+void Inspector::onScaleX(double d){
+    emit ScaleXChanged(d);
+}
+
+void Inspector::onScaleY(double d){
+    emit ScaleYChanged(d);
+}
+
+void Inspector::onStrockeThickness(double d){
+    emit StrockeThicknessChanged(d);
+}
+
+void Inspector::onShape(int index){
+    emit ShapeChanged(index);
+}
+
+void Inspector::onStrokeStyle(int index){
+    emit StrokeStyleCHanged(index);
+}
+

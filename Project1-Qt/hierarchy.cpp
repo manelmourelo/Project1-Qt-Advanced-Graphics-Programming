@@ -79,7 +79,6 @@ void Hierarchy::onItemSelected(int id)
     for(it = objects.begin(); it != objects.end(); it++){
         if(i == id){
             current_object = &(*it);
-            objects.erase(it);
             break;
         }
         i++;
@@ -102,6 +101,71 @@ void Hierarchy::NameChanged(QString text){
     if(current_object != nullptr){
         QTextStream ts(stderr);
         ts << text;
-        current_object->name = QString("awdadadadawd")/*QString(text)*/;
+        current_object->name = text;
     }
 }
+
+void Hierarchy::TransformXChanged(double d){
+    if(current_object != nullptr){
+        current_object->position.setX(d);
+    }
+}
+
+void Hierarchy::TransformYChanged(double d){
+    if(current_object != nullptr){
+        current_object->position.setY(d);
+    }
+}
+
+void Hierarchy::ScaleXChanged(double d){
+    if(current_object != nullptr){
+        current_object->scale.setX(d);
+    }
+}
+
+void Hierarchy::ScaleYChanged(double d){
+    if(current_object != nullptr){
+        current_object->scale.setY(d);
+    }
+}
+
+void Hierarchy::onStrockeThickness(double d){
+    if(current_object != nullptr){
+        current_object->strocke_thickness = d;
+    }
+}
+
+void Hierarchy::onShape(int index){
+    if(current_object != nullptr){
+        if(index == 0){
+            current_object->shape = Shape::Circle;
+        }
+        else{
+            current_object->shape = Shape::Rectangle;
+        }
+    }
+}
+
+void Hierarchy::onStrokeStyle(int index){
+    if(current_object != nullptr){
+        if(index == 0){
+            current_object->strocke_style = Qt::PenStyle::SolidLine;
+        }
+        else if(index == 1){
+            current_object->strocke_style = Qt::PenStyle::DashLine;
+        }
+        else if(index == 2){
+            current_object->strocke_style = Qt::PenStyle::DotLine;
+        }
+        else if(index == 3){
+            current_object->strocke_style = Qt::PenStyle::DashDotLine;
+        }
+        else if(index == 4){
+            current_object->strocke_style = Qt::PenStyle::DashDotDotLine;
+        }
+        else if(index == 5){
+            current_object->strocke_style = Qt::PenStyle::NoPen;
+        }
+    }
+}
+

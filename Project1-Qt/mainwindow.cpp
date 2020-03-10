@@ -32,6 +32,13 @@ MainWindow::MainWindow(QWidget *parent) :
     connect(inspector, SIGNAL(FillColorChanged(QColor)), hierarchy, SLOT(FillColorChanged(QColor)));
     connect(inspector, SIGNAL(StrokeColorChanged(QColor)), hierarchy, SLOT(StrokeColorChanged(QColor)));
     connect(inspector, SIGNAL(NameChanged(QString)), hierarchy, SLOT(NameChanged(QString)));
+    connect(inspector, SIGNAL(TransformXChanged(double)), hierarchy, SLOT(TransformXChanged(double)));
+    connect(inspector, SIGNAL(TransformYChanged(double)), hierarchy, SLOT(TransformYChanged(double)));
+    connect(inspector, SIGNAL(ScaleXChanged(double)), hierarchy, SLOT(ScaleXChanged(double)));
+    connect(inspector, SIGNAL(ScaleYChanged(double)), hierarchy, SLOT(ScaleYChanged(double)));
+    connect(inspector, SIGNAL(StrockeThicknessChanged(double)), hierarchy, SLOT(onStrockeThickness(double)));
+    connect(inspector, SIGNAL(ShapeChanged(int)), hierarchy, SLOT(onShape(int)));
+    connect(inspector, SIGNAL(StrokeStyleCHanged(int)), hierarchy, SLOT(onStrokeStyle(int)));
 
     renderWidget = new RenderWidget();
     QVBoxLayout *centralLayout = new QVBoxLayout();
