@@ -24,8 +24,18 @@
    <item row="0" column="1">
     <widget class="QComboBox" name="shape">
      <property name="currentText">
-      <string/>
+      <string>Circle</string>
      </property>
+     <item>
+      <property name="text">
+       <string>Circle</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>Rectangle</string>
+      </property>
+     </item>
     </widget>
    </item>
   </layout>
