@@ -20,8 +20,11 @@ public:
     ~MainWindow();
 
 public slots:
-        void OnSaveClicked();
-        void OnOpenClicked();
+    void OnNewSceneClicked();
+    void OnSaveClicked();
+    void OnOpenClicked();
+    void OnExitClicked();
+    void OnAboutClicked();
 
 private:
     Ui::MainWindow *ui_main_window;
