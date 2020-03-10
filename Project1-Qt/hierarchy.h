@@ -24,12 +24,15 @@ public slots:
     void onAddEntityClicked();
     void onRemoveEntityClicked();
     void onItemSelected(int id);
+    void FillColorChanged(QColor);
+    void StrokeColorChanged(QColor);
 
 private:
     Ui::Hierarchy *ui;
 public:
     std::list<Object> objects;
     std::list<Object> draw_order;
+    Object* current_object = nullptr;
 };
 
 #endif // HIERARCHY_H

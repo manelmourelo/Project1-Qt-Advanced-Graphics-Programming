@@ -62,3 +62,10 @@ void Hierarchy::onItemSelected(int id)
 {
     emit EntitySelected(id, objects);
 }
+
+void Hierarchy::FillColorChanged(QColor color){
+     current_object->fill_color = color;
+}
+void Hierarchy::StrokeColorChanged(QColor color){
+    current_object->strocke_color = color;
+}

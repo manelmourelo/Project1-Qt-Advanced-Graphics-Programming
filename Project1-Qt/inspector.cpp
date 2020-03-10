@@ -7,6 +7,8 @@
 #include "hierarchy.h"
 #include "object.h"
 #include <list>
+#include <QColorDialog>
+#include <QPalette>
 
 Inspector::Inspector(QWidget *parent) : QWidget(parent)
 {
@@ -34,6 +36,9 @@ Inspector::Inspector(QWidget *parent) : QWidget(parent)
     //...
     setLayout(layout);
 
+    connect(ui_color->fillColor, SIGNAL(clicked()), SLOT(onColorClicked()));
+    connect(ui_color->strockeColor, SIGNAL(clicked()), SLOT(onStrokeColorClicked()));
+
 }
 
 Inspector::~Inspector()
@@ -57,5 +62,30 @@ void Inspector::itemChanged(int new_item, std::list<Object> objects)
             break;
         }
         i++;
+    }
+}
+
+void Inspector::onColorClicked(){
+    QColor color = QColorDialog::getColor(Qt::yellow, this );
+    if( color.isValid() )
+    {
+        QPalette pal = ui_color->fillColor->palette();
+        pal.setColor(QPalette::Button, color);
+        ui_color->fillColor->setAutoFillBackground(true);
+        ui_color->fillColor->setPalette(pal);
+        ui_color->fillColor->update();
+        emit FillColorChanged(color);
+    }
+}
+void Inspector::onStrokeColorClicked(){
+    QColor color = QColorDialog::getColor(Qt::yellow, this );
+    if( color.isValid() )
+    {
+        QPalette pal = ui_color->strockeColor->palette();
+        pal.setColor(QPalette::Button, color);
+        ui_color->strockeColor->setAutoFillBackground(true);
+        ui_color->strockeColor->setPalette(pal);
+        ui_color->strockeColor->update();
+        emit StrokeColorChanged(color);
     }
 }

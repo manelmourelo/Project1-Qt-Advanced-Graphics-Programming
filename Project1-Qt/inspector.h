@@ -18,8 +18,14 @@ public:
     explicit Inspector(QWidget *parent = nullptr);
     ~Inspector();
 
+signals:
+    void FillColorChanged(QColor);
+    void StrokeColorChanged(QColor);
+
 public slots:
     void itemChanged(int new_item, std::list<Object> object);
+    void onColorClicked();
+    void onStrokeColorClicked();
 
 private:
      Ui::Transform *ui_transform;
