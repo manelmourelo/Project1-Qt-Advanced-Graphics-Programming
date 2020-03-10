@@ -3,6 +3,7 @@
 #include <string>
 #include <QVector2D>
 #include <QColor>
+#include <QString>
 
 enum Shape{
     Circle,
@@ -19,13 +20,12 @@ public:
 public:
     uint UUID = 0;
 
-    std::string name;
+    QString name;
 
     QVector2D position;
     QVector2D scale;
 
     Shape shape;
-    float size;
     QColor fill_color;
     QColor strocke_color;
     float strocke_thickness;

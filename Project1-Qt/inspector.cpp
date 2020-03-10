@@ -40,6 +40,8 @@ Inspector::Inspector(QWidget *parent) : QWidget(parent)
     connect(ui_color->fillColor, SIGNAL(clicked()), SLOT(onColorClicked()));
     connect(ui_color->strockeColor, SIGNAL(clicked()), SLOT(onStrokeColorClicked()));
 
+    connect(ui_transform->nameInput, SIGNAL(returnPressed()), SLOT(onNameEntered()));
+
 }
 
 Inspector::~Inspector()
@@ -56,6 +58,7 @@ void Inspector::itemChanged(int new_item, std::list<Object> objects)
     int i = 0;
     for(it = objects.begin(); it != objects.end(); it++){
         if(i == new_item){
+            //ui_transform->nameInput->setText(it->name);
             ui_transform->translationX->setValue(it->position.x());
             ui_transform->translationY->setValue(it->position.y());
             ui_transform->scaleX->setValue(it->scale.x());
@@ -118,4 +121,10 @@ void Inspector::onStrokeColorClicked(){
 
         emit StrokeColorChanged(color);
     }
+}
+
+void Inspector::onNameEntered()
+{
+    QString text = ui_transform->nameInput->text();
+    emit NameChanged(text);
 }

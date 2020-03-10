@@ -1,6 +1,7 @@
 #include "hierarchy.h"
 #include "ui_hierarchy.h"
 #include "object.h"
+#include <QTextStream>
 
 Hierarchy::Hierarchy(QWidget *parent) :
     QWidget(parent),
@@ -64,6 +65,7 @@ void Hierarchy::onRemoveEntityClicked()
     for(it3 = objects.begin(); it3 != objects.end(); it3++){
         if(j == new_current){
             current_object = &(*it3);
+            emit EntitySelected(j, objects);
             break;
         }
     }
@@ -77,7 +79,6 @@ void Hierarchy::onItemSelected(int id)
     for(it = objects.begin(); it != objects.end(); it++){
         if(i == id){
             current_object = &(*it);
-            current_object = nullptr;
             objects.erase(it);
             break;
         }
@@ -94,5 +95,13 @@ void Hierarchy::FillColorChanged(QColor color){
 void Hierarchy::StrokeColorChanged(QColor color){
     if(current_object != nullptr){
         current_object->strocke_color = color;
+    }
+}
+
+void Hierarchy::NameChanged(QString text){
+    if(current_object != nullptr){
+        QTextStream ts(stderr);
+        ts << text;
+        current_object->name = QString("awdadadadawd")/*QString(text)*/;
     }
 }

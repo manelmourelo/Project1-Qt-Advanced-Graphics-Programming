@@ -26,6 +26,7 @@ public slots:
     void onItemSelected(int id);
     void FillColorChanged(QColor);
     void StrokeColorChanged(QColor);
+    void NameChanged(QString text);
 
 private:
     Ui::Hierarchy *ui;

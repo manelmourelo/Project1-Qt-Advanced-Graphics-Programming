@@ -21,11 +21,13 @@ public:
 signals:
     void FillColorChanged(QColor);
     void StrokeColorChanged(QColor);
+    void NameChanged(QString);
 
 public slots:
     void itemChanged(int new_item, std::list<Object> object);
     void onColorClicked();
     void onStrokeColorClicked();
+    void onNameEntered();
 
 private:
      Ui::Transform *ui_transform;

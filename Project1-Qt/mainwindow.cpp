@@ -31,6 +31,7 @@ MainWindow::MainWindow(QWidget *parent) :
     connect(hierarchy, SIGNAL(EntitySelected(int, std::list<Object>)), inspector, SLOT(itemChanged(int, std::list<Object>)));
     connect(inspector, SIGNAL(FillColorChanged(QColor)), hierarchy, SLOT(FillColorChanged(QColor)));
     connect(inspector, SIGNAL(StrokeColorChanged(QColor)), hierarchy, SLOT(StrokeColorChanged(QColor)));
+    connect(inspector, SIGNAL(NameChanged(QString)), hierarchy, SLOT(NameChanged(QString)));
 
     renderWidget = new RenderWidget();
     QVBoxLayout *centralLayout = new QVBoxLayout();
