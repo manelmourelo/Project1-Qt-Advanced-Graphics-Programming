@@ -36,6 +36,7 @@ void Hierarchy::onRemoveEntityClicked()
 {
     int current = ui->listWidget->currentRow();
     ui->listWidget->takeItem(current);
+    int new_current =  ui->listWidget->currentRow();
 
     int i = 0;
     int current_UUID = 0;
@@ -44,6 +45,7 @@ void Hierarchy::onRemoveEntityClicked()
     for(it = objects.begin(); it != objects.end(); it++){
         if(i == current){
             current_UUID = it->UUID;
+            current_object = nullptr;
             objects.erase(it);
             break;
         }
@@ -56,16 +58,41 @@ void Hierarchy::onRemoveEntityClicked()
             break;
         }
     }
+
+    int j = 0;
+    std::list<Object>::iterator it3;
+    for(it3 = objects.begin(); it3 != objects.end(); it3++){
+        if(j == new_current){
+            current_object = &(*it3);
+            break;
+        }
+    }
+
 }
 
 void Hierarchy::onItemSelected(int id)
 {
+    int i = 0;
+    std::list<Object>::iterator it;
+    for(it = objects.begin(); it != objects.end(); it++){
+        if(i == id){
+            current_object = &(*it);
+            current_object = nullptr;
+            objects.erase(it);
+            break;
+        }
+        i++;
+    }
     emit EntitySelected(id, objects);
 }
 
 void Hierarchy::FillColorChanged(QColor color){
-     current_object->fill_color = color;
+    if(current_object != nullptr){
+        current_object->fill_color = color;
+    }
 }
 void Hierarchy::StrokeColorChanged(QColor color){
-    current_object->strocke_color = color;
+    if(current_object != nullptr){
+        current_object->strocke_color = color;
+    }
 }
