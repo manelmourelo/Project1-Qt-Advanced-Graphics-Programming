@@ -23,7 +23,7 @@ Hierarchy::~Hierarchy()
 void Hierarchy::onAddEntityClicked()
 {
     Object new_object = Object();
-    if(objects.size() >= 0){
+    if(objects.size() == 0){
         new_object.UUID = 0;
     }
     else{
