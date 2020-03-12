@@ -53,6 +53,10 @@ Inspector::Inspector(QWidget *parent) : QWidget(parent)
 
     connect(ui_color->strockeStyle, SIGNAL(currentIndexChanged(int)), SLOT(onStrokeStyle(int)));
 
+    transform->hide();
+    form->hide();
+    color->hide();
+
 }
 
 Inspector::~Inspector()
@@ -80,6 +84,16 @@ QString getColorString(QColor color)
 
 void Inspector::itemChanged(int new_item, std::list<Object> objects)
 {
+    if(objects.empty() == true){
+        transform->hide();
+        form->hide();
+        color->hide();
+    }
+    else{
+        transform->show();
+        form->show();
+        color->show();
+    }
     std::list<Object>::iterator it;
     int i = 0;
     for(it = objects.begin(); it != objects.end(); it++){
