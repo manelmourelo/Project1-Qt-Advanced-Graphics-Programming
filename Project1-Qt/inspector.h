@@ -42,6 +42,7 @@ public slots:
     void onStrockeThickness(double d);
     void onShape(int index);
     void onStrokeStyle(int index);
+    void ListIsEmpty();
 
 private:
      Ui::Transform *ui_transform;

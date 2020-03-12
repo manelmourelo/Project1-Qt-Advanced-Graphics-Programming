@@ -82,6 +82,12 @@ QString getColorString(QColor color)
     return string;
 }
 
+void Inspector::ListIsEmpty(){
+    transform->hide();
+    form->hide();
+    color->hide();
+}
+
 void Inspector::itemChanged(int new_item, std::list<Object> objects)
 {
     if(objects.empty() == true){

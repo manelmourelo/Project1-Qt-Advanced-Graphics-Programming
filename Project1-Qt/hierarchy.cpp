@@ -63,15 +63,20 @@ void Hierarchy::onRemoveEntityClicked()
         }
     }
 
-    int j = 0;
-    std::list<Object>::iterator it3;
-    for(it3 = objects.begin(); it3 != objects.end(); it3++){
-        if(j == new_current){
-            current_object = &(*it3);
-            current_object_id = new_current;
-            emit EntitySelected(j, objects);
-            break;
+    if(objects.empty() == false){
+        int j = 0;
+        std::list<Object>::iterator it3;
+        for(it3 = objects.begin(); it3 != objects.end(); it3++){
+            if(j == new_current){
+                current_object = &(*it3);
+                current_object_id = new_current;
+                emit EntitySelected(j, objects);
+                break;
+            }
         }
+    }
+    else{
+        emit ListIsEmpty();
     }
 
     //Emit to draw to the render widget

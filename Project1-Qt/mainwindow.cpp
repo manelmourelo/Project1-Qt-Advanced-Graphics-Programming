@@ -39,7 +39,7 @@ MainWindow::MainWindow(QWidget *parent) :
     connect(inspector, SIGNAL(StrockeThicknessChanged(double)), hierarchy, SLOT(onStrockeThickness(double)));
     connect(inspector, SIGNAL(ShapeChanged(int)), hierarchy, SLOT(onShape(int)));
     connect(inspector, SIGNAL(StrokeStyleCHanged(int)), hierarchy, SLOT(onStrokeStyle(int)));
-
+    connect(hierarchy, SIGNAL(ListIsEmpty()), inspector, SLOT(ListIsEmpty()));
 
     renderWidget = new RenderWidget();
     QVBoxLayout *centralLayout = new QVBoxLayout();
