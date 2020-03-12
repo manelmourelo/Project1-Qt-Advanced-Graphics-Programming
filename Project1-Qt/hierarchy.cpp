@@ -32,6 +32,9 @@ void Hierarchy::onAddEntityClicked()
     objects.push_back(new_object);
     draw_order.push_back(new_object);
     ui->listWidget->addItem("NewObject");
+
+    //Emit to draw to the render widget
+    emit EntityToDraw(objects);
 }
 void Hierarchy::onRemoveEntityClicked()
 {
@@ -70,6 +73,8 @@ void Hierarchy::onRemoveEntityClicked()
         }
     }
 
+    //Emit to draw to the render widget
+    emit EntityToDraw(objects);
 }
 
 void Hierarchy::onItemSelected(int id)
@@ -89,11 +94,17 @@ void Hierarchy::onItemSelected(int id)
 void Hierarchy::FillColorChanged(QColor color){
     if(current_object != nullptr){
         current_object->fill_color = color;
+
+        //Emit to draw to the render widget
+        emit EntityToDraw(objects);
     }
 }
 void Hierarchy::StrokeColorChanged(QColor color){
     if(current_object != nullptr){
         current_object->strocke_color = color;
+
+        //Emit to draw to the render widget
+        emit EntityToDraw(objects);
     }
 }
 
@@ -108,30 +119,45 @@ void Hierarchy::NameChanged(QString text){
 void Hierarchy::TransformXChanged(double d){
     if(current_object != nullptr){
         current_object->position.setX(d);
+
+        //Emit to draw to the render widget
+        emit EntityToDraw(objects);
     }
 }
 
 void Hierarchy::TransformYChanged(double d){
     if(current_object != nullptr){
         current_object->position.setY(d);
+
+        //Emit to draw to the render widget
+        emit EntityToDraw(objects);
     }
 }
 
 void Hierarchy::ScaleXChanged(double d){
     if(current_object != nullptr){
         current_object->scale.setX(d);
+
+        //Emit to draw to the render widget
+        emit EntityToDraw(objects);
     }
 }
 
 void Hierarchy::ScaleYChanged(double d){
     if(current_object != nullptr){
         current_object->scale.setY(d);
+
+        //Emit to draw to the render widget
+        emit EntityToDraw(objects);
     }
 }
 
 void Hierarchy::onStrockeThickness(double d){
     if(current_object != nullptr){
         current_object->strocke_thickness = d;
+
+        //Emit to draw to the render widget
+        emit EntityToDraw(objects);
     }
 }
 
@@ -143,6 +169,9 @@ void Hierarchy::onShape(int index){
         else{
             current_object->shape = Shape::Rectangle;
         }
+
+        //Emit to draw to the render widget
+        emit EntityToDraw(objects);
     }
 }
 
@@ -166,6 +195,9 @@ void Hierarchy::onStrokeStyle(int index){
         else if(index == 5){
             current_object->strocke_style = Qt::PenStyle::NoPen;
         }
+
+        //Emit to draw to the render widget
+        emit EntityToDraw(objects);
     }
 }
 

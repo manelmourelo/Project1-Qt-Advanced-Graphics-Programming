@@ -21,11 +21,9 @@ QSize RenderWidget::minimumSizeHint() const
     return QSize(64, 64);
 }
 
- void RenderWidget::paintEvent(QPaintEvent *event)
- {
+void RenderWidget::paintEvent(QPaintEvent *event)
+{
      QColor blueColor = QColor::fromRgb(127, 190, 220);
-     QColor whiteColor = QColor::fromRgb(255, 255, 255);
-     QColor blackColor = QColor::fromRgb(0, 0, 0);
 
      //Prepare the painter for this widget
      QPainter painter(this);
@@ -43,20 +41,35 @@ QSize RenderWidget::minimumSizeHint() const
      //Paint background
      painter.drawRect(rect());
 
-     //Brush/Pen configuration
-     brush.setColor(whiteColor);
-     pen.setWidth(4);
-     pen.setColor(blackColor);
-     pen.setStyle(Qt::PenStyle::DashLine);
-     painter.setBrush(brush);
-     painter.setPen(pen);
+     std::list<Object>::iterator it;
+     for(it = objects_to_draw.begin(); it != objects_to_draw.end(); it++){
+         //Brush/Pen configuration
+         brush.setColor(it->fill_color);
+         pen.setWidth(it->strocke_thickness);
+         pen.setColor(it->strocke_color);
+         pen.setStyle(it->strocke_style);
+         painter.setBrush(brush);
+         painter.setPen(pen);
 
-     //DrawCircle
-     int r = 64;
-     int w = r*2;
-     int h = r*2;
-     int x = rect().width() / 2-r;
-     int y = rect().height() / 2-r;
-     QRect circleRect(x,y,w,h);
-     painter.drawEllipse(circleRect);
+         //DrawCircle
+         int r = (int)64;
+         int w = (int)it->scale.x()*r;
+         int h = (int)it->scale.y()*r;
+         int x = (int)it->position.x();
+         int y = (int)it->position.y();
+         QRect shape(x,y,w,h);
+
+         if(it->shape == Shape::Circle)
+            painter.drawEllipse(shape);
+         else
+            painter.drawRect(shape);
+     }
  }
+
+
+void RenderWidget::EntityToDraw(std::list<Object> objects){
+
+    objects_to_draw.clear();
+    objects_to_draw = objects;
+
+}

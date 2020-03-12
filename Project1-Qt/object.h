@@ -7,8 +7,7 @@
 
 enum Shape{
     Circle,
-    Rectangle,
-    Triangle
+    Rectangle
 };
 
 class Object

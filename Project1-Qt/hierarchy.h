@@ -19,6 +19,7 @@ public:
 
 signals:
     void EntitySelected(int entotyID, std::list<Object> objects);
+    void EntityToDraw(std::list<Object> objects);
 
 public slots:
     void onAddEntityClicked();

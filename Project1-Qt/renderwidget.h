@@ -2,6 +2,7 @@
 #define RENDERWIDGET_H
 
 #include <QWidget>
+#include "object.h"
 
 class RenderWidget : public QWidget
 {
@@ -17,9 +18,11 @@ public:
 signals:
 
 public slots:
+    void EntityToDraw(std::list<Object> objects);
 
 private:
     void paintEvent(QPaintEvent *event) override;
+    std::list<Object> objects_to_draw;
 
 };
 

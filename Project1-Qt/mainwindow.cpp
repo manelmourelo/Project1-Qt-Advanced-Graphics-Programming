@@ -40,10 +40,14 @@ MainWindow::MainWindow(QWidget *parent) :
     connect(inspector, SIGNAL(ShapeChanged(int)), hierarchy, SLOT(onShape(int)));
     connect(inspector, SIGNAL(StrokeStyleCHanged(int)), hierarchy, SLOT(onStrokeStyle(int)));
 
+
     renderWidget = new RenderWidget();
     QVBoxLayout *centralLayout = new QVBoxLayout();
     centralLayout->addWidget(renderWidget);
     ui_main_window->centralWidget->setLayout(centralLayout);
+
+    //Connect for sending the list of objects to draw
+    connect(hierarchy, SIGNAL(EntityToDraw(std::list<Object>)), renderWidget, SLOT(EntityToDraw(std::list<Object>)));
 
 
 }
