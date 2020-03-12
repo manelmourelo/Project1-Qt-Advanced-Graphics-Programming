@@ -68,6 +68,7 @@ void Hierarchy::onRemoveEntityClicked()
     for(it3 = objects.begin(); it3 != objects.end(); it3++){
         if(j == new_current){
             current_object = &(*it3);
+            current_object_id = new_current;
             emit EntitySelected(j, objects);
             break;
         }
@@ -84,6 +85,7 @@ void Hierarchy::onItemSelected(int id)
     for(it = objects.begin(); it != objects.end(); it++){
         if(i == id){
             current_object = &(*it);
+            current_object_id = id;
             break;
         }
         i++;
@@ -113,6 +115,7 @@ void Hierarchy::NameChanged(QString text){
         QTextStream ts(stderr);
         ts << text;
         current_object->name = text;
+        ReDoHierarchy();
     }
 }
 
@@ -199,5 +202,14 @@ void Hierarchy::onStrokeStyle(int index){
         //Emit to draw to the render widget
         emit EntityToDraw(objects);
     }
+}
+
+void Hierarchy::ReDoHierarchy(){
+    ui->listWidget->clear();
+    std::list<Object>::iterator it;
+    for(it = objects.begin(); it != objects.end(); it++){
+        ui->listWidget->addItem(it->name);
+    }
+
 }
 

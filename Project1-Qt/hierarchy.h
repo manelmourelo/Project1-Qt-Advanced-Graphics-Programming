@@ -17,6 +17,8 @@ public:
     explicit Hierarchy(QWidget *parent = nullptr);
     ~Hierarchy();
 
+    void ReDoHierarchy();
+
 signals:
     void EntitySelected(int entotyID, std::list<Object> objects);
     void EntityToDraw(std::list<Object> objects);
@@ -42,6 +44,7 @@ public:
     std::list<Object> objects;
     std::list<Object> draw_order;
     Object* current_object = nullptr;
+    int current_object_id = 0;
 };
 
 #endif // HIERARCHY_H
