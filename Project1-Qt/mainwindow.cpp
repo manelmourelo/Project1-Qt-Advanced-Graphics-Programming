@@ -41,6 +41,8 @@ MainWindow::MainWindow(QWidget *parent) :
     connect(inspector, SIGNAL(StrokeStyleCHanged(int)), hierarchy, SLOT(onStrokeStyle(int)));
     connect(hierarchy, SIGNAL(ListIsEmpty()), inspector, SLOT(ListIsEmpty()));
 
+    connect(this, SIGNAL(DeleteObjects()), hierarchy, SLOT(DeleteObjects()));
+
     renderWidget = new RenderWidget();
     QVBoxLayout *centralLayout = new QVBoxLayout();
     centralLayout->addWidget(renderWidget);
@@ -65,7 +67,7 @@ void MainWindow::OnNewSceneClicked()
                                                                "Do you want to start a new project from zero without saving changes?");
     if(button == QMessageBox::Yes){
         //TODO: Delete every object on scene
-
+        emit DeleteObjects();
     }
     else{
 

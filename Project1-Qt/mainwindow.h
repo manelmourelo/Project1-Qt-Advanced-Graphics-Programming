@@ -19,6 +19,9 @@ public:
     explicit MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
 
+signals:
+    void DeleteObjects();
+
 public slots:
     void OnNewSceneClicked();
     void OnSaveClicked();

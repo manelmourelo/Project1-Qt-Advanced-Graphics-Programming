@@ -218,3 +218,11 @@ void Hierarchy::ReDoHierarchy(){
 
 }
 
+
+void Hierarchy::DeleteObjects(){
+    objects.clear();
+    ui->listWidget->clear();
+    emit EntityToDraw(objects);
+    emit ListIsEmpty();
+}
+

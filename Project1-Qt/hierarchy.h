@@ -38,6 +38,7 @@ public slots:
     void onStrockeThickness(double d);
     void onShape(int index);
     void onStrokeStyle(int index);
+    void DeleteObjects();
 
 private:
     Ui::Hierarchy *ui;
