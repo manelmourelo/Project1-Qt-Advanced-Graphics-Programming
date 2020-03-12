@@ -1,5 +1,6 @@
 #include "renderwidget.h"
 #include <QPainter>
+#include "qtextstream.h"
 
 RenderWidget::RenderWidget()
 {
@@ -68,8 +69,7 @@ void RenderWidget::paintEvent(QPaintEvent *event)
 
 
 void RenderWidget::EntityToDraw(std::list<Object> objects){
-
     objects_to_draw.clear();
     objects_to_draw = objects;
-
+    update();
 }
