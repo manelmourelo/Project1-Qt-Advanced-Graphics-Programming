@@ -81,6 +81,44 @@ void MainWindow::OnSaveClicked()
                                                                "Do you want to save?");
     if(button == QMessageBox::Yes){
         std::cout << "Exit without saving changes" << std::endl;
+
+        QString fileName = QFileDialog::getSaveFileName(this,
+               tr("Save Proyect"), "",
+               tr("QTProyect (*.qtProyect)"));
+
+        if (fileName.isEmpty())
+        {
+                return;
+        }
+        else {
+            QFile file(fileName);
+            if (!file.open(QIODevice::WriteOnly)) {
+                QMessageBox::information(this, tr("Unable to open file"),
+                    file.errorString());
+                return;
+            }
+
+            QDataStream out(&file);
+            out.setVersion(QDataStream::Qt_DefaultCompiledVersion);
+
+            std::list<Object>::iterator it;
+
+            out << (int)hierarchy->objects.size();
+
+            for(it = hierarchy->objects.begin(); it != hierarchy->objects.end(); it++){
+                out << it->name;
+                out << it->position;
+                out << it->scale;
+                out << it->shape;
+                out << it->fill_color;
+                out << it->strocke_color;
+                out << it->strocke_thickness;
+                out << it->strocke_style;
+                out << it->UUID;
+            }
+
+
+        }
     }
     else{
         std::cout << "Cancel exit" << std::endl;
@@ -88,10 +126,51 @@ void MainWindow::OnSaveClicked()
 }
 void MainWindow::OnOpenClicked()
 {
-    QString path = QFileDialog::getOpenFileName(this, "Open Project");
-    if(!path.isEmpty()){
-        std::cout << path.toStdString() << std::endl;
+    QString fileName = QFileDialog::getOpenFileName(this,   tr("Open Proyect"), "",
+                                                tr("QTProyect (*.qtProyect)"));
+    if (fileName.isEmpty())
+            return;
+        else {
+
+            QFile file(fileName);
+
+            if (!file.open(QIODevice::ReadOnly)) {
+                QMessageBox::information(this, tr("Unable to open file"),
+                    file.errorString());
+                return;
+            }
+
+            QDataStream in(&file);
+            in.setVersion(QDataStream::Qt_DefaultCompiledVersion);
+
+            emit DeleteObjects();
+
+            int number = 0;
+
+            in >> number;
+
+
+            for(int i = 0; i < number; ++i){
+                Object obj = Object();
+
+                in >> obj.name;
+                in >> obj.position;
+                in >> obj.scale;
+                in >> obj.shape;
+                in >> obj.fill_color;
+                in >> obj.strocke_color;
+                in >> obj.strocke_thickness;
+                in >> obj.strocke_style;
+                in >> obj.UUID;
+
+                hierarchy->objects.push_back(obj);
+            }
+
+            emit hierarchy->EntityToDraw(hierarchy->objects);
+
     }
+
+
 }
 
 void MainWindow::OnExitClicked()
