@@ -3,6 +3,7 @@
 This application is a 2D scene editor that operates with vector shapes. The project is made by [Manel Mourelo](https://github.com/manelmourelo), [Alfonso Sanchez](https://github.com/Siitoo) & [David Valdivia](https://github.com/ValdiviaDev).
 
 ## List of features of the editor:
+<img src="Docs/editor_help.png" width="600">
 
 - File tab:
   - New Scene: Discard every change on the scene and make a new one.
