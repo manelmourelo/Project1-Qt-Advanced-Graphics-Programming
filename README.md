@@ -30,3 +30,11 @@ Every shape has an inspector window that has options to edit it. These options a
     - Dash dot
     - Dash dot dot
     - No stroke
+    
+## List of QT features used:
+- Signal/slots events via code to comunicate with the different app elements.
+- Style sheet: Used to change the colors of the application and the font of the text.
+- Resource files: Used to charge image files into the QT editor to use as icons.
+- Special dialogs: Used in the file tab to ask for user confirmation on certain actions.
+- Docking: Feature of the QT editor that lets interchange the different UI windows in the application.
+- Intercomunication with the UI on the QT editor via code.
