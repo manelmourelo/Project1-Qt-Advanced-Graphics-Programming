@@ -162,7 +162,7 @@ void MainWindow::OnOpenClicked()
                 in >>  hierarchy->objects.back().strocke_style;
             }
 
-
+            hierarchy->ReDoHierarchy();
             emit hierarchy->EntityToDraw(hierarchy->objects);
 
     }
