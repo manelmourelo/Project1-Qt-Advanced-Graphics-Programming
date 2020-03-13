@@ -114,7 +114,7 @@ void MainWindow::OnSaveClicked()
                 out << it->strocke_color;
                 out << it->strocke_thickness;
                 out << it->strocke_style;
-                out << it->UUID;
+
             }
 
 
@@ -151,20 +151,17 @@ void MainWindow::OnOpenClicked()
 
 
             for(int i = 0; i < number; ++i){
-                Object obj = Object();
-
-                in >> obj.name;
-                in >> obj.position;
-                in >> obj.scale;
-                in >> obj.shape;
-                in >> obj.fill_color;
-                in >> obj.strocke_color;
-                in >> obj.strocke_thickness;
-                in >> obj.strocke_style;
-                in >> obj.UUID;
-
-                hierarchy->objects.push_back(obj);
+                hierarchy->onAddEntityClicked();
+                in >>  hierarchy->objects.back().name;
+                in >>  hierarchy->objects.back().position;
+                in >>  hierarchy->objects.back().scale;
+                in >>  hierarchy->objects.back().shape;
+                in >>  hierarchy->objects.back().fill_color;
+                in >>  hierarchy->objects.back().strocke_color;
+                in >>  hierarchy->objects.back().strocke_thickness;
+                in >>  hierarchy->objects.back().strocke_style;
             }
+
 
             emit hierarchy->EntityToDraw(hierarchy->objects);
 
